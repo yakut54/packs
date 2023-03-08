@@ -406,6 +406,10 @@ aside {
 	transition: .3s;
 	z-index: 4;
 }
+#main .back{
+	width: 20px;
+	height: 20px;
+}
 .back:hover{
 	transform: scale(.95);
 }
