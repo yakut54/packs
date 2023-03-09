@@ -31,7 +31,10 @@
           </div>
           <div class="yuotube_block">
             <div class="thumb-wrap">
-              <iframe width="690" height="388" :src="`https://www.youtube.com/embed/${giftBtn.youtube}`" title="Сеанс в подарок" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe width="690" height="388" :src="`https://www.youtube.com/embed/${giftBtn.youtube}`"
+                title="Сеанс в подарок" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
             </div>
           </div>
           <a class="button-1 _2" :href="giftBtn.telegram">ПОЛУЧИТЬ БОНУС В TELEGRAM</a>
@@ -42,7 +45,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: "Gift",
@@ -51,20 +54,22 @@ export default {
   },
   methods: {
     ...mapMutations(["setTitle", "setSubtitle"]),
+    ...mapActions(['getGift_1']),
     goto(refName) {
       const element = this.$refs[refName]
       element.scrollIntoView({ behavior: "smooth" })
     }
   },
-  mounted() {
-    this.setTitle(this.giftBtn.title)
-    this.setSubtitle(this.giftBtn.subtitle)
+  async mounted() {
     window.scrollTo(0, 0)
     document.title = 'ВАМ ПОДАРОК'
+    if(!this.giftBtn.title){
+      await this.getGift_1()
+    }
+    this.setTitle(this.giftBtn.title)
+    this.setSubtitle(this.giftBtn.subtitle)
   }
 }
 </script>
 
-<style>
-@import url(../assets/css/gift.css);
-</style>
+<style>@import url(../assets/css/gift.css);</style>

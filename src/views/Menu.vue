@@ -82,7 +82,7 @@ export default {
 	},
 	methods: {
 		...mapMutations(['setTitle', 'setSubtitle']),
-		...mapActions(['getSeansByPageName']),
+		...mapActions(['getSeansByPageName', 'getGift_1', 'getGift_2']),
 
 		start(idx) {
 			localStorage.setItem('idx', idx)
@@ -93,7 +93,7 @@ export default {
 			)
 		}
 	},
-	mounted() {
+	async mounted() {
 		this.setTitle(this.title)
 		this.setSubtitle(this.subtitle)
 		window.scrollTo(0, 0)
@@ -104,7 +104,9 @@ export default {
       .split('=')[1]
 
     if (pageName) {
-      this.getSeansByPageName(pageName)
+      await this.getSeansByPageName(pageName)
+      await this.getGift_1()
+      await this.getGift_2()
       localStorage.setItem('pageName', pageName)
     }
 	}

@@ -107,9 +107,12 @@ export default {
       }, 0)
     }
   },
-  mounted() {
+  async mounted() {
     this.idx = +localStorage.getItem('idx') || 0
-    this.pageName = localStorage.getItem("pageName") || 'pageName-test'
+    this.pageName = localStorage.getItem("pageName")
+
+    await this.getSeansByPageName(this.pageName)
+
     this.text = this.data[this.idx].text
     this.route = this.data[this.idx].type
     this.imgFon = this.data[this.idx].imgFon
@@ -122,8 +125,6 @@ export default {
     this.setTitle(this.data[this.idx].titleSeans)
     this.setSubtitle(this.data[this.idx].subtitleSeans)
     this.$title(this.data[this.idx].titleSeans)
-
-    this.getSeansByPageName(this.pageName)
   }
 
 }

@@ -3,147 +3,82 @@ import { Admin } from './Admin'
 
 export default createStore({
   state: {
+    status: 'create',
     isLoading: false,
     packsList: [],
-    pageName: 'nekii_page_name',
-    title: 'Зарузка...',
-    subtitle: 'Зарузка...',
+    pageName: '',
+    title: '',
+    subtitle: '',
     isShowBtnLink: false,
     isShowGiftBtn: true,
     isShowGiftBtnLink: true,
 
     giftBtn: {
-      texts: [
-        `<p class="text-large">Это решение для тебя, <br class="show_500">если наблюдаешь у себя:</p>
-        <ul class="list_1">
-          <li>
-              <div class="text-block-1">Недостаток энергии</div>
-          </li>
-          <li>
-              <div class="text-block-1">Потускнение волос</div>
-          </li>
-          <li>
-              <div class="text-block-1">Выпадение волос</div>
-          </li>
-          <li>
-              <div class="text-block-1">Повышение сухости кожи</div>
-          </li>
-          <li>
-              <div class="text-block-1">Тусклость/желтизну ногтей</div>
-          </li>
-          <li>
-              <div class="text-block-1">Уменьшение скорости ходьбы</div>
-          </li>
-          <li>
-              <div class="text-block-1">Затруднённость/невозможность бега</div>
-          </li>
-          <li>
-              <div class="text-block-1">Уменьшение амплитуды движений</div>
-          </li>
-          <li>
-              <div class="text-block-1">Скованность суставов</div>
-          </li>
-          <li>
-              <div class="text-block-1">Трудно делать приседания/сидеть на корточках</div>
-          </li>
-          <li>
-              <div class="text-block-1">Уменьшение силы в руках/в ногах</div>
-          </li>
-          <li>
-              <div class="text-block-1">Ухудшение зрения</div>
-          </li>
-          <li>
-              <div class="text-block-1">Ухудшение памяти</div>
-          </li>
-          <li>
-              <div class="text-block-1">Скачки давления</div>
-          </li>
-          <li>
-              <div class="text-block-1">Скачки в настроении</div>
-          </li>
-          <li>
-              <div class="text-block-1">Раздражительность</div>
-          </li>
-          <li>
-              <div class="text-block-1">Тревожность</div>
-          </li>
-          <li>
-              <div class="text-block-1">Панические атаки</div>
-          </li>
-        </ul>`,
-        `<div class="text-block-2">
-          Получить настрой «Тотальное Омоложение» <br class="br">
-          <strong class="bold-text-517">можно через Telegram.</strong> <br class="br">
-          Только через него. Если ты не пользуешься этим мессенджером, <br>
-          то тут варианта два: просто не получать этот подарок или установить <br>
-          <a href="https://desktop.telegram.org/" target="_blank"><em class="italic-text dop-5">Telegram</em> </a>
-          на компьютер или телефон и получить их. 
-        </div>`,
-        `<strong>Что сделать для получения бонуса <br>
-          «Тотальное омоложение»</strong>`,
-      ],
-      youtube: 'HnQklOHBCeI',
-      telegram: 'https://t.me/marta_ng/844',
-      img: 'https://api.selcdn.ru/v1/SEL_53369/mng/receive/images/total_omolozh.png',
-      title: `ВАМ ПОДАРОК:`,
-      subtitle: 'ТОТАЛЬНОЕ ОМОЛОЖЕНИЕ',
-      titleBtn: `ТОТАЛЬНОЕ ОМОЛОЖЕНИЕ ОРГАНИЗМА`,
-      subtitleBtn: 'аудиосеанс',
-      imgBtn: 'https://api.selcdn.ru/v1/SEL_53369/mng/receive/images/__audio__.png',
-      redFlagText: 'Необъявленный подарок <span style="font-family: arial;">№</span>1'
+      texts: [``, ``, ``],
+      youtube: '',
+      telegram: '',
+      img: '',
+      title: ``,
+      subtitle: '',
+      titleBtn: ``,
+      subtitleBtn: '',
+      imgBtn: '',
+      redFlagText: ''
     },
 
     linkGiftBtn: {
-      redFlagText: 'Необъявленный подарок <span style="font-family: arial;">№</span>2',
-      titleBtn: `ЖЕНСКИЙ ЖУРНАЛ`,
+      redFlagText: '',
+      titleBtn: ``,
       subtitleBtn: ``,
-      imgBtn: 'https://api.selcdn.ru/v1/SEL_53369/mng/receive/images/__zh__.png',
-      link: 'https://marta-ng.com/zhenskii_zhurnal/'
+      imgBtn: '',
+      link: ''
     },
 
     btnLink: {
-      redFlagText: 'test',
-      titleBtn: `test`,
-      subtitleBtn: `test`,
-      imgBtn: 'test',
-      link: 'test'
+      redFlagText: '',
+      titleBtn: ``,
+      subtitleBtn: ``,
+      imgBtn: '',
+      link: ''
     },
 
     data: [
       {
-        titleSeans: "test",
-        subtitleSeans: "test",
-        titleBtn: "test",
-        subtitleBtn: "test",
+        titleSeans: "",
+        subtitleSeans: "",
+        titleBtn: "",
+        subtitleBtn: "",
         through: false,
-        type: "video",
-        redFlagText: "test",
+        type: "",
+        redFlagText: "",
         imgFon: "",
         imgBtn: "",
-        durationText: "test",
+        durationText: "",
         imageBook: "",
         source: "",
-        recommendations: "test",
-        text: "test",
-        poster: "test",
-        isOpen: false
+        recommendations: "",
+        text: "",
+        poster: "",
+        isOpen: false,
       },
     ]
   },
   mutations: {
-    toggleLoader: (state, bool) => {
-      console.log('bool from vuex >> ', bool);
-      state.isLoading = bool},
+    toggleStatus: (state, status) => state.status = status,
+    toggleLoader: (state, bool) => state.isLoading = bool,
     setDataIsOpenIndex: (state, idx) => {
       state.data[idx].isOpen 
         ? state.data[idx].isOpen = false 
         : state.data[idx].isOpen = true
     },
+    setIsCopied: (state, idx) => {
+      state.packsList[idx].isCopied = true
+      setTimeout(() => state.packsList[idx].isCopied = false, 2000)
+    },
 
     setSubtitle: (state, subtitle) => state.subtitle = subtitle,
     setTitle: (state, title) => state.title = title,
     setServerData: (state, data) => {
-
       state.data = data.map(item => {
         return {
           titleSeans: item.title,
@@ -161,12 +96,33 @@ export default createStore({
           recommendations: item.recomendations,
           text: item.text,
           poster: item.poster,
+          isOpen: false,
         }
       })
     },
-    setPacksList: (state, packsList) => state.packsList = packsList,
-    setGift_1_: (state, gift) => state.giftBtn = gift,
-    setGift_2_: (state, gift) => state.linkGiftBtn = gift,
+    setPacksList: (state, packsList) => {
+      packsList.forEach(pack => pack.isCopied = false)
+      state.packsList = packsList
+    },
+    setGift_1_: (state, gift) => {
+      state.giftBtn.texts = gift.texts
+      state.giftBtn.img = gift.img
+      state.giftBtn.imgBtn = gift.img_btn
+      state.giftBtn.redFlagText = gift.red_flag_text
+      state.giftBtn.titleBtn = gift.title_btn
+      state.giftBtn.subtitleBtn = gift.subtitle_btn
+      state.giftBtn.title = gift.title
+      state.giftBtn.subtitle = gift.subtitle
+      state.giftBtn.telegram = gift.telegram
+      state.giftBtn.youtube = gift.youtube
+    },
+    setGift_2_: (state, gift) => {
+      state.linkGiftBtn.redFlagText = gift.link_gift_btn.red_flag_text
+      state.linkGiftBtn.titleBtn = gift.link_gift_btn.title_btn
+      state.linkGiftBtn.subtitleBtn = gift.link_gift_btn.subtitle_btn
+      state.linkGiftBtn.imgBtn = gift.link_gift_btn.img_btn
+      state.linkGiftBtn.link = gift.link_gift_btn.link
+    },
     setBtnLink: (state, btnLink) => {
 
       // console.log('btnLink >> ', btnLink);
@@ -189,7 +145,10 @@ export default createStore({
     setText_1: (state, text) => state.giftBtn.texts[0] = text,
     setText_2: (state, text) => state.giftBtn.texts[1] = text,
     setText_3: (state, text) => state.giftBtn.texts[2] = text,
-    setGiftTitleBtn_1: (state, titleBtn) => state.giftBtn.titleBtn = titleBtn,
+    setGiftTitleBtn_1: (state, titleBtn) => {
+      console.log('titleBtn', titleBtn);
+      // state.giftBtn.titleBtn = titleBtn
+    },
     setGiftSubtitleBtn_1: (state, subtitleBtn) => state.giftBtn.subtitleBtn = subtitleBtn,
     setGiftImgBtn_1: (state, imgBtn) => state.giftBtn.imgBtn = imgBtn,
     setGiftImg: (state, img) => state.giftBtn.img = img,
@@ -228,6 +187,7 @@ export default createStore({
     setSubtitleBtn: (state, obj) => state.data[obj.idx].subtitleBtn = obj.value,
     setThrough: (state, obj) => state.data[obj.idx].through = obj.value,
     setImgBtn: (state, obj) => state.data[obj.idx].imgBtn = obj.value,
+    setRedFlagText: (state, obj) => state.data[obj.idx].redFlagText = obj.value,
     setData: (state, obj) => state.data.push(obj),
     setServerData_: (state, arr) => state.data = arr,
     deleteBtn: (state, idx) => state.data.splice(idx, 1),
@@ -295,11 +255,6 @@ export default createStore({
 
       console.log('getSeansByPageName >>>', sendData);
 
-      // console.log(JSON.stringify({
-      //   giftBtn: state.giftBtn,
-      //   linkGiftBtn: state.linkGiftBtn
-      // }, null, 2));
-
       const result = await fetch('https://marta-ng.com/packs/admin/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -308,16 +263,7 @@ export default createStore({
 
       const resJson = result.json()
       resJson.then(a => {
-        // console.log('response >> ', a);
-        // console.log('response title >> ', a.answer.title);
-        // console.log('response subtitle >> ', a.answer.subtitle);
-        // console.log('response title >> ', a.answer.title);
-        // console.log('response subtitle >> ', a.answer.subtitle);
-        // console.log('response isShowBtnLink >> ', a.answer.isShowBtnLink);
-        // console.log('response isShowGiftBtn >> ', a.answer.isShowGiftBtn);
-        // console.log('response isShowGiftBtnLink >> ', a.answer.isShowGiftBtnLink);
         console.log('response data >> ', a.answer.data);
-        // console.log('response linkBtn >> ', a.answer.linkBtn[0]);
 
         commit('setPageTitle', a.answer.title)
         commit('setPageSubtitle', a.answer.subtitle)
@@ -328,10 +274,6 @@ export default createStore({
         commit('setIsShowGiftBtnLink', a.answer.isShowGiftBtnLink)
         commit('setBtnLink', a.answer.linkBtn[0])
 
-        // commit('setGift_1', a.answer.linkGiftBtn)
-        // commit('setGift_2', a.answer.giftBtn)
-
-        // console.log('resJson.then >> ', a.answer);
         commit('toggleLoader', false)
       })
     },
@@ -375,7 +317,7 @@ export default createStore({
       const resJson = result.json()
       resJson.then(a => {
         console.log('response get_gift_1 >>', a);
-        // commit('setGift_1_', a.answer)
+        commit('setGift_1_', a.answer.gift_btn)
         commit('toggleLoader', false)
       })
 
@@ -395,7 +337,7 @@ export default createStore({
       const resJson = result.json()
       resJson.then(a => {
         console.log('response get_gift_2 >>', a);
-        // commit('setGift_2_', a.answer)
+        commit('setGift_2_', a.answer)
         commit('toggleLoader', false)
       })
 

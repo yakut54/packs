@@ -1,52 +1,53 @@
 <template>
   <div class="admin inner-page">
     <back-button />
-    <div class="admin-gift" style="background: #d5d5d5;padding-left: 10px;padding-right: 10px;padding-bottom: 20px;">
+    <loader v-if="isLoading"/>
+    <div v-else class="admin-gift" style="background: #d5d5d5;padding-left: 10px;padding-right: 10px;padding-bottom: 20px;">
       <div class="form-block">
-        <label for="text-1"><span class="label-text">Text 1</span></label>
-        <textarea id="text-1" class="textarea" v-model="text_1"></textarea>
+        <label for="text-1"><span class="label-text">Описание сеанса подарка №1</span></label>
+        <textarea placeholder="Описание сеанса подарка №1" id="text-1" class="textarea" v-model="text_1"></textarea>
       </div>
       <div class="form-block">
-        <label for="text-2"><span class="label-text">Text 2</span></label>
-        <textarea id="text-2" class="textarea" v-model="text_2"></textarea>
+        <label for="text-2"><span class="label-text">Текст в синем прямоугольнике подарка №1</span></label>
+        <textarea placeholder="Текст в синем прямоугольнике подарка №1" id="text-2" class="textarea" v-model="text_2"></textarea>
       </div>
       <div class="form-block">
-        <label for="text-3"><span class="label-text">Text 3</span></label>
-        <textarea id="text-3" class="textarea" v-model="text_3"></textarea>
+        <label for="text-3"><span class="label-text">Текст над youtube подарка №1</span></label>
+        <textarea placeholder="Текст над youtube подарка №1" id="text-3" class="textarea" v-model="text_3"></textarea>
       </div>
       <div class="form-block">
 
         <div class="row form-block-row">
           <div class="flex-form-block">
-            <label for="input-1"><span class="label-text">Title</span></label>
-            <input id="input-1" class="input" v-model="title">
+            <label for="input-1"><span class="label-text">Заголовок подарка №1</span></label>
+            <input placeholder="Заголовок подарка №1" id="input-1" class="input" v-model="title">
           </div>
           <div class="flex-form-block">
-            <label for="input-2"><span class="label-text">Subtitle</span></label>
-            <input id="input-2" class="input" v-model="subtitle">
+            <label for="input-2"><span class="label-text">Подзаголовок подарка №1</span></label>
+            <input placeholder="Подзаголовок подарка №1" id="input-2" class="input" v-model="subtitle">
           </div>
         </div>
         
         <div class="row form-block-row">
           <div class="flex-form-block">
-            <label for="input-3"><span class="label-text">TitleBtn</span></label>
-            <input id="input-3" class="input" v-model="titleBtn">
+            <label for="input-3"><span class="label-text">Заголовок на кнопке подарка №1</span></label>
+            <input placeholder="Заголовок на кнопке подарка №1" id="input-3" class="input" v-model="titleBtn">
           </div>
           <div class="flex-form-block">
-            <label for="input-4"><span class="label-text">SubtitleBtn</span></label>
-            <input id="input-4" class="input" v-model="subtitleBtn">
+            <label for="input-4"><span class="label-text">Подзаголовок на кнопке подарка №1</span></label>
+            <input placeholder="Подзаголовок на кнопке подарка №1" id="input-4" class="input" v-model="subtitleBtn">
           </div>
         </div>
 
         <div class="row form-block-row">
           <div class="row form-block-row">
             <div class="flex-form-block">
-              <label for="input-7"><span class="label-text">ImageBtn</span></label>
-              <input id="input-7" class="input" v-model="imgBtn">
+              <label for="input-7"><span class="label-text">Изображение на кнопке подарка №1</span></label>
+              <input placeholder="Изображение на кнопке подарка №1" id="input-7" class="input" v-model="imgBtn">
             </div>
             <div class="flex-form-block">
-              <label for="input-9"><span class="label-text">redFlagText</span></label>
-              <input id="input-9" class="input" v-model="redFlagText">
+              <label for="input-9"><span class="label-text">Красный флаг на кнопке подарка №1</span></label>
+              <input placeholder="Красный флаг на кнопке подарка №1" id="input-9" class="input" v-model="redFlagText">
             </div>
           </div>
         </div>
@@ -64,15 +65,15 @@
 
         <div class="row form-block-row">
           <div class="flex-form-block">
-            <label for="input-8"><span class="label-text">Image</span></label>
-            <input id="input-8" class="input" v-model="img">
+            <label for="input-8"><span class="label-text">Изображение подарка №1</span></label>
+            <input placeholder="Изображение подарка №1" id="input-8" class="input" v-model="img">
             <div class="flex-form-block">
               <img :src="img" alt="" class="flex-form-block-img-large">
             </div>
           </div>
           <div class="flex-form-block">
             <label for="input-6"><span class="label-text">Youtube</span></label>
-            <input id="input-6" class="input" v-model="youtube">
+            <input placeholder="Youtube" id="input-6" class="input" v-model="youtube">
             <div class="thumb-wrap">
               <iframe :src="`https://www.youtube.com/embed/${youtube}`" frameborder="0" allowfullscreen></iframe>
             </div>
@@ -82,21 +83,22 @@
         <div class="row form-block-row">
           <div class="flex-form-block">
             <label for="input-5"><span class="label-text">Telegram</span></label>
-            <input id="input-5" class="input" v-model="telegram">
+            <input placeholder="Telegram" id="input-5" class="input" v-model="telegram">
           </div>
         </div>
 
       </div>
-      <span class="create-btn button asb mt" @click="save">Save</span>
+      <span class="create-btn button asb mt" @click="save">Сохранить</span>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   computed: {
+    ...mapState(['isLoading']),
     text_1: {
       get() {
         return this.$store.state.giftBtn.texts[0]
@@ -126,7 +128,7 @@ export default {
         return this.$store.state.giftBtn.title
       },
       set(value) {
-        this.$store.commit('setYoutube', value)
+        this.$store.commit('setGiftTitle', value)
       }
     },
     subtitle: {

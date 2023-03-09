@@ -2,36 +2,36 @@
   <div class="admin inner-page">
     <back-button />
     <div class="admin-gift" style="background: #d5d5d5;padding-left: 10px;padding-right: 10px;padding-bottom: 20px;">
-      
-      <div class="form-block">
+      <loader v-if="isLoading"/>
+      <div v-else class="form-block">
 
         <div class="row form-block-row">
           <div class="flex-form-block">
-            <label for="input-2"><span class="label-text">Link</span></label>
-            <input id="input-2" class="input" v-model="link">
+            <label for="input-2"><span class="label-text">Ссылка подарка №2</span></label>
+            <input placeholder="Ссылка подарка №2" id="input-2" class="input" v-model="link">
           </div>
         </div>
         
         <div class="row form-block-row">
           <div class="flex-form-block">
-            <label for="input-3"><span class="label-text">TitleBtn</span></label>
-            <input id="input-3" class="input" v-model="titleBtn">
+            <label for="input-3"><span class="label-text">Заголовок на кнопке подарка №2</span></label>
+            <input placeholder="Заголовок на кнопке подарка №2" id="input-3" class="input" v-model="titleBtn">
           </div>
           <div class="flex-form-block">
-            <label for="input-4"><span class="label-text">SubtitleBtn</span></label>
-            <input id="input-4" class="input" v-model="subtitleBtn">
+            <label for="input-4"><span class="label-text">Подзаголовок на кнопке подарка №2</span></label>
+            <input placeholder="Подзаголовок на кнопке подарка №2" id="input-4" class="input" v-model="subtitleBtn">
           </div>
         </div>
 
         <div class="row form-block-row">
           <div class="row form-block-row">
             <div class="flex-form-block">
-              <label for="input-7"><span class="label-text">ImageBtn</span></label>
-              <input id="input-7" class="input" v-model="imgBtn">
+              <label for="input-7"><span class="label-text">Изображение на кнопке подарка №2</span></label>
+              <input placeholder="Изображение на кнопке подарка №2" id="input-7" class="input" v-model="imgBtn">
             </div>
             <div class="flex-form-block">
-              <label for="input-9"><span class="label-text">redFlagText</span></label>
-              <input id="input-9" class="input" v-model="redFlagText">
+              <label for="input-9"><span class="label-text">Красный флаг на кнопке подарка №1</span></label>
+              <input placeholder="Красный флаг на кнопке подарка №2" id="input-9" class="input" v-model="redFlagText">
             </div>
           </div>
         </div>
@@ -50,16 +50,17 @@
        
 
       </div>
-      <span class="create-btn button asb mt" @click="save">Save</span>
+      <span class="create-btn button asb mt" @click="save">Сохранить</span>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   computed: {
+    ...mapState(['isLoading']),
     link: {
       get() {
         return this.$store.state.linkGiftBtn.link

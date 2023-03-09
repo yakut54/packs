@@ -5,18 +5,18 @@
     <div class="admin-gift">
 
       <div class="admin-page-bar">
-        <label for="input-812"><span class="label-text">Show Link Btn</span></label>
+        <label for="input-812"><span class="label-text">Допродажа</span></label>
         <select id="input-812" class="create-btn button asb" v-model="isShowBtnLink">
-          <option value="true">true</option>
-          <option value="false">false</option>
+          <option value="true">есть</option>
+          <option value="false">нет</option>
         </select>
-        <label for="input-81e"><span class="label-text">Show Gift</span></label>
+        <label for="input-81e"><span class="label-text">Подарки</span></label>
         <select id="input-81e" class="create-btn button asb" v-model="isShowGiftBtnLink">
-          <option value="true">true</option>
-          <option value="false">false</option>
+          <option value="true">есть</option>
+          <option value="false">нет</option>
         </select>
-        <span class="create-btn button asb" @click="create">Create Seanse</span>
-        <span class="create-btn button asb" @click="openShowData">show data array</span>
+        <span class="create-btn button asb" @click="create">Добавить сеанс</span>
+        <span class="create-btn button asb" @click="openShowData">Показать массив данных</span>
       </div>
 
       <div class="show_data" :class="{ 'active_show_data': isShowActiveShowData }">
@@ -29,42 +29,42 @@
       <div class="form-block" v-else>
         <div class="row form-block-row">
           <div class="flex-form-block">
-            <label for="input-1"><span class="label-text">Page Name</span></label>
-            <input id="input-1" class="input" v-model="pageName">
+            <label for="input-1"><span class="label-text">Название упаковки</span></label>
+            <input placeholder="Название упаковки" id="input-1" class="input" v-model="pageName">
           </div>
         </div>
 
         <div class="row form-block-row">
           <div class="flex-form-block">
-            <label for="input-1"><span class="label-text">Title</span></label>
-            <input id="input-1" class="input" v-model="pageTitle">
+            <label for="input-1"><span class="label-text">Заголовок Упаковки</span></label>
+            <input placeholder="Заголовок Упаковки" id="input-1" class="input" v-model="pageTitle">
           </div>
           <div class="flex-form-block">
-            <label for="input-2"><span class="label-text">Subtitle</span></label>
-            <input id="input-2" class="input" v-model="pageSubtitle">
+            <label for="input-2"><span class="label-text">Подзаголовок</span></label>
+            <input placeholder="Подзаголовок Упаковки" id="input-2" class="input" v-model="pageSubtitle">
           </div>
         </div>
 
         <div class="row form-block-row" v-if="isShowBtnLink">
           <div class="flex-form-block">
-            <label for="input-3"><span class="label-text">Title Link Btn</span></label>
-            <input id="input-3" class="input" v-model="titleLinkBtn">
+            <label for="input-3"><span class="label-text">Заголовок кнопки "Допродажа"</span></label>
+            <input placeholder='Заголовок кнопки "Допродажа"' id="input-3" class="input" v-model="titleLinkBtn">
           </div>
           <div class="flex-form-block">
-            <label for="input-4"><span class="label-text">Subtitle Link Btn</span></label>
-            <input id="input-4" class="input" v-model="subtitleLinkBtn">
+            <label for="input-4"><span class="label-text">Подзаголовок кнопки "Допродажа"</span></label>
+            <input placeholder='Подзаголовок кнопки "Допродажа"' id="input-4" class="input" v-model="subtitleLinkBtn">
           </div>
         </div>
 
         <div class="row form-block-row" v-if="isShowBtnLink">
           <div class="row form-block-row">
             <div class="flex-form-block">
-              <label for="input-7"><span class="label-text">Image Link Btn</span></label>
-              <input id="input-7" class="input" v-model="imgLinkBtn">
+              <label for="input-7"><span class="label-text">Изображение на кнопке "Допродажа"</span></label>
+              <input placeholder='Изображение на кнопке "Допродажа"' id="input-7" class="input" v-model="imgLinkBtn">
             </div>
             <div class="flex-form-block">
-              <label for="input-9"><span class="label-text">redFlagText</span></label>
-              <input id="input-9" class="input" v-model="redFlagText">
+              <label for="input-9"><span class="label-text">Красный флаг на кнопке "Допродажа"</span></label>
+              <input placeholder='Красный флаг на кнопке "Допродажа"' id="input-9" class="input" v-model="redFlagText">
             </div>
           </div>
         </div>
@@ -72,15 +72,14 @@
         <div class="row form-block-row">
           <div class="row form-block-row">
             <div class="flex-form-block" v-if="isShowBtnLink">
-              <label for="input-811"><span class="label-text">Link</span></label>
-              <input id="input-811" class="input" v-model="btnLink_link">
+              <label for="input-811"><span class="label-text">Ссылка на кнопке "Допродажа"</span></label>
+              <input placeholder='Ссылка на кнопке "Допродажа"' id="input-811" class="input" v-model="btnLink_link">
             </div>
           </div>
         </div>
 
         <!-- akkardeon -->
         <div class="admin-btn-wrapper">
-
           <div :key="btn.title" v-for="(btn, idx) in data" :ref="`akk_${idx}`" :class="{ 'akk-active': btn.isOpen }">
             <div class="menu-btn admin-menu-btn" @click="toggleAkkardeonBtn(idx)"
               :class="[{ 'mt-dop': !!btn.redFlagText }, `akk_${idx}`]">
@@ -101,90 +100,94 @@
               <div class="form-block">
                 <div class="row form-block-row">
                   <div class="flex-form-block">
-                    <label for="input-81r5"><span class="label-text">Through</span></label>
+                    <label for="input-81r5"><span class="label-text">Описание сеанса</span></label>
                     <select id="input-81r5" class="input" :value="btn.through" @input="e => updateThrough(idx, e)">
-                      <option value="true">true</option>
-                      <option value="false">false</option>
+                      <option value="true">нет</option>
+                      <option value="false">есть</option>
                     </select>
                   </div>
                 </div>
 
                 <div class="area-div">
-                  <label v-if="!btn.through" :for="`text-${idx}`"><span class="label-text">Text</span></label>
+                  <label v-if="!btn.through" :for="`text-${idx}`"><span class="label-text">Текст описания
+                      сеанса</span></label>
                   <textarea v-if="!btn.through" :id="`text-${idx}`" class="textarea" :value="btn.text"
-                    @input="e => updateText(idx, e)"></textarea>
+                    placeholder="Текст описания сеанса" @input="e => updateText(idx, e)"></textarea>
                 </div>
 
                 <div class="area-div">
-                  <label v-if="!btn.through" :for="`text-${idx}_r`"><span
-                      class="label-text">Recommendations</span></label>
+                  <label v-if="!btn.through" :for="`text-${idx}_r`"><span class="label-text">Рекомендация</span></label>
                   <textarea v-if="!btn.through" :id="`text-${idx}_r`" class="textarea" :value="btn.recommendations"
-                    @input="e => updateRecommendations(idx, e)"></textarea>
+                  placeholder="Рекомендация" @input="e => updateRecommendations(idx, e)"></textarea>
                 </div>
 
                 <div class="row form-block-row">
                   <div class="flex-form-block">
-                    <label for="input-211e"><span class="label-text">Title Seans</span></label>
-                    <input id="input-211e" class="input" :value="btn.titleSeans" @input="e => updateTitle(idx, e)">
+                    <label for="input-211e"><span class="label-text">Заголовок сеанса</span></label>
+                    <input placeholder="Заголовок сеанса" id="input-211e" class="input" :value="btn.titleSeans" @input="e => updateTitle(idx, e)">
                   </div>
                   <div class="flex-form-block">
-                    <label for="input-111"><span class="label-text">Subtitle Seans</span></label>
-                    <input id="input-111" class="input" :value="btn.subtitleSeans" @input="e => updateSubtitle(idx, e)">
-                  </div>
-                </div>
-
-                <div class="row form-block-row">
-                  <div class="flex-form-block">
-                    <label for="input-221"><span class="label-text">Title Btn</span></label>
-                    <input id="input-221" class="input" :value="btn.titleBtn" @input="e => updateTitleBtn(idx, e)">
-                  </div>
-                  <div class="flex-form-block">
-                    <label for="input-151"><span class="label-text">Subtitle Btn</span></label>
-                    <input id="input-151" class="input" :value="btn.subtitleBtn" @input="e => updateSubtitleBtn(idx, e)">
+                    <label for="input-111"><span class="label-text">Подзаголовок сеанса</span></label>
+                    <input placeholder="Подзаголовок сеанса" id="input-111" class="input" :value="btn.subtitleSeans" @input="e => updateSubtitle(idx, e)">
                   </div>
                 </div>
 
                 <div class="row form-block-row">
                   <div class="flex-form-block">
-                    <label for="input-812"><span class="label-text">Source</span></label>
-                    <input id="input-812" class="input" :value="btn.source" @input="e => updateSource(idx, e)">
+                    <label for="input-221"><span class="label-text">Заголовок на кнопке сеанса</span></label>
+                    <input placeholder="Заголовок на кнопке сеанса" id="input-221" class="input" :value="btn.titleBtn" @input="e => updateTitleBtn(idx, e)">
+                  </div>
+                  <div class="flex-form-block">
+                    <label for="input-151"><span class="label-text">Подзаголовок на кнопке сеанса</span></label>
+                    <input placeholder="Подзаголовок на кнопке сеанса" id="input-151" class="input" :value="btn.subtitleBtn" @input="e => updateSubtitleBtn(idx, e)">
+                  </div>
+                </div>
+
+                <div class="row form-block-row">
+                  <div class="flex-form-block">
+                    <label for="input-812"><span class="label-text">Ссылка на трек</span></label>
+                    <input placeholder="Ссылка на трек" id="input-812" class="input" :value="btn.source" @input="e => updateSource(idx, e)">
                   </div>
                   <div class="flex-form-block" v-if="!btn.through">
-                    <label for="input-813"><span class="label-text">Image</span></label>
-                    <input id="input-813" class="input" :value="btn.imgFon" @input="e => updateImg(idx, e)">
+                    <label for="input-813"><span class="label-text">Изображение в описании сеанса</span></label>
+                    <input placeholder="Изображение в описании сеанса" id="input-813" class="input" :value="btn.imgFon" @input="e => updateImg(idx, e)">
                   </div>
                 </div>
 
                 <div class="row form-block-row">
                   <div class="flex-form-block" v-if="!btn.through">
-                    <label for="input-814"><span class="label-text">Duration</span></label>
-                    <input id="input-814" class="input" :value="btn.durationText" @input="e => updateDuration(idx, e)">
+                    <label for="input-814"><span class="label-text">Продолжительность сеанса</span></label>
+                    <input placeholder="Продолжительность сеанса" id="input-814" class="input" :value="btn.durationText" @input="e => updateDuration(idx, e)">
                   </div>
                   <div class="flex-form-block">
-                    <label for="input-815"><span class="label-text">Type</span></label>
+                    <label for="input-815"><span class="label-text">Тип сеанса</span></label>
                     <select id="input-815" class="input" :value="btn.type" @input="e => updateType(idx, e)">
-                      <option value="video">video</option>
-                      <option value="audio">audio</option>
-                      <option value="book">book</option>
+                      <option value="video">Видео</option>
+                      <option value="audio">Аудио</option>
+                      <option value="book">Электронная книга</option>
                     </select>
                   </div>
                 </div>
 
                 <div class="row form-block-row">
                   <div class="flex-form-block" v-if="!btn.through">
-                    <label for="input-814"><span class="label-text">Btn Img</span></label>
-                    <input id="input-814" class="input" :value="btn.imgBtn" @input="e => updateImgBtn(idx, e)">
+                    <label for="input-814"><span class="label-text">Изображение на кнопке сеанса</span></label>
+                    <input placeholder="Изображение на кнопке сеанса" id="input-814" class="input" :value="btn.imgBtn" @input="e => updateImgBtn(idx, e)">
+                  </div>
+                  <div class="flex-form-block" v-if="!btn.through">
+                    <label for="input-814w"><span class="label-text">Красный флаг на кнопке</span></label>
+                    <input placeholder="Красный флаг на кнопке" id="input-814w" class="input" :value="btn.redFlagText" @input="e => updateRedFlagText(idx, e)">
                   </div>
                 </div>
 
                 <div class="row form-block-row">
                   <div class="flex-form-block" v-if="btn.type === 'video'">
-                    <label for="input-8166"><span class="label-text">Poster</span></label>
-                    <input id="input-8166" class="input" :value="btn.poster" @input="e => updatePoster(idx, e)">
+                    <label for="input-8166"><span class="label-text">Ссылка на постер для видео</span></label>
+                    <input placeholder="Ссылка на постер для видео" id="input-8166" class="input" :value="btn.poster" @input="e => updatePoster(idx, e)">
                   </div>
                   <div class="flex-form-block" v-if="btn.type === 'book'">
-                    <label for="input-8155"><span class="label-text">Image Book</span></label>
-                    <input id="input-8155" class="input" :value="btn.imageBook" @input="e => updateImgBook(idx, e)">
+                    <label for="input-8155"><span class="label-text">Ccылка на Изображение книги</span></label>
+                    <input placeholder="Ccылка на Изображение книги" id="input-8155" class="input" :value="btn.imageBook" @input="e => updateImgBook(idx, e)">
                   </div>
                 </div>
 
@@ -253,7 +256,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import Ztest from './Ztest'
 import Otest from './Otest'
 import Vtest from './Vtest'
@@ -269,9 +272,36 @@ export default {
       this.isShowActiveShowData = !this.isShowActiveShowData
     },
     ...mapActions(['getSeansByPageName']),
+    ...mapMutations([
+      'setPageName',
+      'setPageTitle',
+      'setPageSubtitle',
+      'setBtnLinkTitle',
+      'setBtnLinkSubtitle',
+      'setBtnLinkImgBtn',
+      'setBtnLinkRedFlagText',
+      'setBtnLink_link',
+      'setIsShowBtnLink',
+      'setSeansText',
+      'setSource',
+      'setImgFon',
+      'setDuration',
+      'setType',
+      'setPoster',
+      'setImgBook',
+      'setRecommendations',
+      'setTitleSeans',
+      'setSubtitleSeans',
+      'setTitleBtn',
+      'setSubtitleBtn',
+      'setThrough',
+      'setImgBtn',
+      'setImgBtn',
+      'setRedFlagText'
+    ]),
     save() {
       this.$store.dispatch('createSeans', {
-        type: 'createItem', 
+        type: 'createItem',
         callback: () => {
           this.$router.push('/admin_1225')
         }
@@ -300,6 +330,9 @@ export default {
         poster: '',
         isOpen: false
       })
+    },
+    updateRedFlagText(idx, e) {
+      this.$store.commit('setRedFlagText', { value: e.target.value, idx })
     },
     updateImgBtn(idx, e) {
       this.$store.commit('setImgBtn', { value: e.target.value, idx })
@@ -359,7 +392,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['data', 'btnLink', 'isLoading']),
+    ...mapState(['data', 'btnLink', 'isLoading', 'status']),
     pageName: {
       get() {
         return this.$store.state.pageName
@@ -446,9 +479,39 @@ export default {
   mounted() {
 
     this.pageName = localStorage.getItem("pageName")
-    this.$store.commit('setAdminTitle', this.pageName)
-    this.$title('Редактор ' + this.pageName)
-    this.getSeansByPageName(this.pageName)
+    this.$store.commit('setAdminTitle', this.status === 'edit' ? this.pageName : 'Новая упаковка')
+    this.$title('Редактор')
+
+    if (this.status === 'edit') {
+      this.getSeansByPageName(this.pageName)
+    }
+    if (this.status === 'create') {
+      this.setPageName('')
+      this.setPageTitle('')
+      this.setPageSubtitle('')
+      this.setBtnLinkTitle('')
+      this.setBtnLinkSubtitle('')
+      this.setBtnLinkImgBtn('')
+      this.setBtnLinkRedFlagText('')
+      this.setBtnLink_link('')
+      this.setIsShowBtnLink(false)
+
+      this.setSeansText({ value: '', idx: 0 })
+      this.setSource({ value: '', idx: 0 })
+      this.setImgFon({ value: '', idx: 0 })
+      this.setDuration({ value: '', idx: 0 })
+      this.setType({ value: 'audio', idx: 0 })
+      this.setPoster({ value: '', idx: 0 })
+      this.setImgBook({ value: '', idx: 0 })
+      this.setImgBtn({ value: '', idx: 0 })
+      this.setTitleSeans({ value: '', idx: 0 })
+      this.setSubtitleSeans({ value: '', idx: 0 })
+      this.setTitleBtn({ value: '', idx: 0 })
+      this.setSubtitleBtn({ value: '', idx: 0 })
+      this.setRecommendations({ value: '', idx: 0 })
+      this.setRedFlagText({ value: '', idx: 0 })
+      this.setThrough({ value: false, idx: 0 })
+    }
   },
   components: { Ztest, Otest, Vtest }
 }
