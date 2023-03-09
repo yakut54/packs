@@ -3,18 +3,15 @@
     <back-button />
     <div class="video-wrapper">
       <div class="video-top teleport">
-        <video 
-          ref="video"
-          :src="data[idx].source" 
-          :poster="poster">
+        <video ref="video" :src="data[idx].source" :poster="poster">
         </video>
         <div @click="fullscreenVideo" class="fullscreen">
-					<i class="fa fa-arrows-alt" aria-hidden="true"></i>
-				</div>
+          <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+        </div>
         <!-- teleport play button -->
       </div>
       <div class="video-bottom">
-        <player :player="player" :src="data[idx].source"/>
+        <player :player="player" :src="data[idx].source" />
       </div>
 
     </div>
@@ -28,7 +25,7 @@ import { ref } from 'vue'
 
 export default {
   name: "Video",
-  setup(){
+  setup() {
     const video = ref(null)
     const player = () => video.value
 
@@ -53,23 +50,29 @@ export default {
     ...mapMutations(["setTitle", "setSubtitle"]),
     ...mapActions(['getSeansByPageName']),
   },
-  mounted() {
+  async mounted() {
     this.idx = +localStorage.getItem("idx") || 0;
-    this.pageName = localStorage.getItem("pageName") || 'pageName-test'
-    this.getSeansByPageName(pageName, 'getItem')
-    this.poster = this.data[this.idx].poster
-    
-    window.scrollTo(0, 0)
+    const pageName = localStorage.getItem("pageName")
 
-    this.setTitle(this.data[this.idx].titleSeans)
-    this.setSubtitle(this.data[this.idx].subtitleSeans)
-    this.$title(this.data[this.idx].titleSeans)
+    const setData = () => {
+      this.poster = this.data[this.idx].poster
 
-    this.getSeansByPageName(this.pageName)
+      window.scrollTo(0, 0)
+
+      this.setTitle(this.data[this.idx].titleSeans)
+      this.setSubtitle(this.data[this.idx].subtitleSeans)
+      this.$title(this.data[this.idx].titleSeans)
+    }
+
+    if (this.isEnterFromMenu) {
+      setData()
+    } else {
+      await this.getSeansByPageName({
+        pageName,
+        callback: setData
+      })
+    }
+
   }
 }
 </script>
-
-<style>
-
-</style>

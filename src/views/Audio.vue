@@ -13,11 +13,7 @@
             </div>
           </div>
           <div class="recomendation-line"></div>
-          <img
-            src="@/assets/images/uhi.png"
-            alt="РЕКОМЕНДАЦИЯ"
-            class="uhi"
-          />
+          <img src="@/assets/images/uhi.png" alt="РЕКОМЕНДАЦИЯ" class="uhi" />
           <div class="recomendation-txt">
             <strong>
               <span class="dop-2">Для наилучшего эффекта</span>
@@ -43,7 +39,7 @@ import { ref } from 'vue'
 
 export default {
   name: "Audio",
-  setup(){
+  setup() {
     const audio = ref(null)
     const player = () => audio.value
     return { audio, player }
@@ -61,18 +57,29 @@ export default {
     ...mapMutations(["setTitle", "setSubtitle"]),
     ...mapActions(['getSeansByPageName'])
   },
-  mounted() {
+  async mounted() {
     this.idx = +localStorage.getItem("idx") || 0;
-    this.pageName = localStorage.getItem("pageName") || 'pageName-test'
-    this.recommendations = this.config.data[this.idx].recommendations
-    
-    window.scrollTo(0, 0)
 
-    this.setTitle(this.data[this.idx].titleSeans)
-    this.setSubtitle(this.data[this.idx].subtitleSeans)
-    this.$title(this.data[this.idx].titleSeans)
+    const pageName = localStorage.getItem("pageName")
 
-    this.getSeansByPageName(this.pageName)
+    const setData = () => {
+      this.recommendations = this.config.data[this.idx].recommendations
+
+      window.scrollTo(0, 0)
+
+      this.setTitle(this.data[this.idx].titleSeans)
+      this.setSubtitle(this.data[this.idx].subtitleSeans)
+      this.$title(this.data[this.idx].titleSeans)
+    }
+
+    if (this.isEnterFromMenu) {
+      setData()
+    } else {
+      await this.getSeansByPageName({
+        pageName,
+        callback: setData
+      })
+    }
   }
 }
 </script>

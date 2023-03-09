@@ -25,23 +25,30 @@ export default {
     ...mapMutations(["setTitle", "setSubtitle"]),
     ...mapActions(['getSeansByPageName']),
   },
-  mounted() {
+  async mounted() {
     this.idx = +localStorage.getItem("idx") || 0
-    this.pageName = localStorage.getItem("pageName") || 'pageName-test'
-    this.img = this.data[this.idx].imageBook
-    this.source = this.data[this.idx].source
-    
-    window.scrollTo(0, 0)
+    const pageName = localStorage.getItem("pageName")
 
-    this.setTitle(this.data[this.idx].titleSeans)
-    this.setSubtitle(this.data[this.idx].subtitleSeans)
-    this.$title(this.data[this.idx].titleSeans)
+    const setData = () => {
+      this.img = this.data[this.idx].imageBook
+      this.source = this.data[this.idx].source
 
-    this.getSeansByPageName(this.pageName)
+      window.scrollTo(0, 0)
+
+      this.setTitle(this.data[this.idx].titleSeans)
+      this.setSubtitle(this.data[this.idx].subtitleSeans)
+      this.$title(this.data[this.idx].titleSeans)
+    }
+
+    if (this.isEnterFromMenu) {
+      setData()
+    } else {
+      await this.getSeansByPageName({
+        pageName,
+        callback: setData
+      })
+    }
   }
 }
 </script>
 
-<style>
-
-</style>

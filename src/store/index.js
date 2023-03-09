@@ -3,6 +3,7 @@ import { Admin } from './Admin'
 
 export default createStore({
   state: {
+    isEnterFromMenu: false,
     status: 'create',
     isLoading: false,
     packsList: [],
@@ -64,11 +65,12 @@ export default createStore({
     ]
   },
   mutations: {
+    toggleIsEnterFromMenu: (state, bool) => state.isEnterFromMenu = bool,
     toggleStatus: (state, status) => state.status = status,
     toggleLoader: (state, bool) => state.isLoading = bool,
     setDataIsOpenIndex: (state, idx) => {
-      state.data[idx].isOpen 
-        ? state.data[idx].isOpen = false 
+      state.data[idx].isOpen
+        ? state.data[idx].isOpen = false
         : state.data[idx].isOpen = true
     },
     setIsCopied: (state, idx) => {
@@ -145,10 +147,7 @@ export default createStore({
     setText_1: (state, text) => state.giftBtn.texts[0] = text,
     setText_2: (state, text) => state.giftBtn.texts[1] = text,
     setText_3: (state, text) => state.giftBtn.texts[2] = text,
-    setGiftTitleBtn_1: (state, titleBtn) => {
-      console.log('titleBtn', titleBtn);
-      // state.giftBtn.titleBtn = titleBtn
-    },
+    setGiftTitleBtn_1: (state, titleBtn) => { state.giftBtn.titleBtn = titleBtn },
     setGiftSubtitleBtn_1: (state, subtitleBtn) => state.giftBtn.subtitleBtn = subtitleBtn,
     setGiftImgBtn_1: (state, imgBtn) => state.giftBtn.imgBtn = imgBtn,
     setGiftImg: (state, img) => state.giftBtn.img = img,
@@ -193,7 +192,7 @@ export default createStore({
     deleteBtn: (state, idx) => state.data.splice(idx, 1),
   },
   actions: {
-    createSeans: async ({ commit, state }, {type: requestType, callback}) => {
+    createSeans: async ({ commit, state }, { type: requestType, callback }) => {
       commit('toggleLoader', true)
       const { btnLink, isShowGiftBtnLink, isShowBtnLink, data, title, subtitle, pageName, isShowGiftBtn } = state
       const sendData = JSON.stringify({
@@ -220,7 +219,7 @@ export default createStore({
 
       const resJson = result.json()
       resJson.then(a => {
-        
+
         console.log(a)
         commit('toggleLoader', false)
         commit('setClearData', [{
@@ -244,7 +243,7 @@ export default createStore({
       })
 
     },
-    getSeansByPageName: async ({ commit, state }, pageName) => {
+    getSeansByPageName: async ({ commit }, { pageName, callback }) => {
 
       commit('toggleLoader', true)
 
@@ -263,16 +262,20 @@ export default createStore({
 
       const resJson = result.json()
       resJson.then(a => {
-        console.log('response data >> ', a.answer.data);
+        console.log('a.answer >> ', a.answer);
 
         commit('setPageTitle', a.answer.title)
         commit('setPageSubtitle', a.answer.subtitle)
-        commit('setPageName', a.answer.pack_id || state.pageName)
+        commit('setPageName', a.answer.pack_id)
         commit('setServerData', a.answer.data)
         commit('setIsShowBtnLink', a.answer.isShowBtnLink)
         commit('setIsShowGiftBtn', a.answer.isShowGiftBtn)
         commit('setIsShowGiftBtnLink', a.answer.isShowGiftBtnLink)
         commit('setBtnLink', a.answer.linkBtn[0])
+
+        if (callback) {
+          callback()
+        }
 
         commit('toggleLoader', false)
       })

@@ -483,7 +483,7 @@ export default {
     this.$title('Редактор')
 
     if (this.status === 'edit') {
-      this.getSeansByPageName(this.pageName)
+      this.getSeansByPageName({pageName: this.pageName})
     }
     if (this.status === 'create') {
       this.setPageName('')

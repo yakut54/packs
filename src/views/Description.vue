@@ -1,5 +1,6 @@
 <template>
-  <div class="description inner-page">
+  <loader v-if="isLoading" />
+  <div class="description inner-page" v-else>
     <back-button />
     <div class="row row-description">
       <div class="description-content d1">
@@ -88,7 +89,7 @@ export default {
     return { audio, player }
   },
   computed: {
-    ...mapState(['data'])
+    ...mapState(['data', 'isLoading', 'isEnterFromMenu'])
   },
   methods: {
     ...mapMutations(['setTitle', 'setSubtitle']),
@@ -109,22 +110,32 @@ export default {
   },
   async mounted() {
     this.idx = +localStorage.getItem('idx') || 0
-    this.pageName = localStorage.getItem("pageName")
+    const pageName = localStorage.getItem("pageName")
 
-    await this.getSeansByPageName(this.pageName)
+    const setData = () => {
+      this.text = this.data[this.idx].text
+      this.route = this.data[this.idx].type
+      this.imgFon = this.data[this.idx].imgFon
+      this.typeText = this.data[this.idx].typeText
+      this.duration = this.data[this.idx].durationText
+      this.recommendations = this.data[this.idx].recommendations
 
-    this.text = this.data[this.idx].text
-    this.route = this.data[this.idx].type
-    this.imgFon = this.data[this.idx].imgFon
-    this.typeText = this.data[this.idx].typeText
-    this.duration = this.data[this.idx].durationText
-    this.recommendations = this.data[this.idx].recommendations
+      window.scrollTo(0, 0)
 
-    window.scrollTo(0, 0)
+      this.setTitle(this.data[this.idx].titleSeans)
+      this.setSubtitle(this.data[this.idx].subtitleSeans)
+      this.$title(this.data[this.idx].titleSeans)
+    }
 
-    this.setTitle(this.data[this.idx].titleSeans)
-    this.setSubtitle(this.data[this.idx].subtitleSeans)
-    this.$title(this.data[this.idx].titleSeans)
+    if (this.isEnterFromMenu) {
+      setData()
+    } else {
+      await this.getSeansByPageName({
+        pageName,
+        callback: setData
+      })
+    }
+
   }
 
 }
