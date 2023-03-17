@@ -64,7 +64,9 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
 	name: 'Menu',
 	computed: {
-		...mapState(['isEnterFromMenu', 'giftBtn', 'linkGiftBtn', 'btnLink', 'data', 'title', 'subtitle', 'isShowGiftBtn', 'isShowBtnLink', 'isShowGiftBtnLink'])
+		...mapState(['isEnterFromMenu', 'giftBtn', 'linkGiftBtn', 'btnLink', 'data',
+			'title', 'subtitle', 'title_', 'subtitle_', 'isShowGiftBtn', 'isShowBtnLink',
+			'isShowGiftBtnLink'])
 	},
 	methods: {
 		...mapMutations(['setPageTitle', 'setPageSubtitle', 'toggleIsEnterFromMenu']),
@@ -85,16 +87,17 @@ export default {
 		const pageName = window.location.hash.replace(regexp, '').split('=')[1]
 
 		if (pageName) {
+			window.scrollTo(0, 0)
+
 			await this.getSeansByPageName({
 				pageName,
 				callback: () => {
-					this.setPageTitle(this.title)
-					this.setPageSubtitle(this.subtitle)
-					window.scrollTo(0, 0)
 					this.$title(this.title)
+					this.setPageTitle(this.title_)
+					this.setPageSubtitle(this.subtitle_)
 				}
 			})
-			
+
 			if (!this.giftBtn.titleBtn) {
 				await this.getGift_1()
 				await this.getGift_2()

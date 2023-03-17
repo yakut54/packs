@@ -80,9 +80,17 @@
 
         <!-- akkardeon -->
         <div class="admin-btn-wrapper">
-          <div :key="btn.title" v-for="(btn, idx) in data" :ref="`akk_${idx}`" :class="{ 'akk-active': btn.isOpen }">
-            <div class="menu-btn admin-menu-btn" @click="toggleAkkardeonBtn(idx)"
-              :class="[{ 'mt-dop': !!btn.redFlagText }, `akk_${idx}`]">
+          <div 
+            :key="btn.title" 
+            :ref="`akk_${idx}`" 
+            v-for="(btn, idx) in data" 
+            :class="{ 'akk-active': btn.isOpen }"
+          >
+            <div 
+              class="menu-btn admin-menu-btn" 
+              @click="toggleAkkardeonBtn(idx, $event)"
+              :class="[{ 'mt-dop': !!btn.redFlagText }, `akk_${idx}`]"
+            >
               <div class="click">
                 <div class="delete" @click="$event => deleteBtn(idx, $event)"></div>
               </div>
@@ -331,6 +339,12 @@ export default {
         isOpen: false
       })
     },
+    toggleAkkardeonBtn(idx, e) {
+      if(e.target.classList.contains('click')){
+        this.$store.commit('setDataIsOpenIndex', idx)
+        this.goto(`akk_${idx}`)
+      }
+    },
     updateRedFlagText(idx, e) {
       this.$store.commit('setRedFlagText', { value: e.target.value, idx })
     },
@@ -377,10 +391,6 @@ export default {
     updateThrough(idx, e) {
       const v = e.target.value === 'true' ? true : false
       this.$store.commit('setThrough', { value: v, idx })
-    },
-    toggleAkkardeonBtn(idx) {
-      this.$store.commit('setDataIsOpenIndex', idx)
-      this.goto(`akk_${idx}`)
     },
     goto(refName) {
       function onScroll(selector, time = 900) {

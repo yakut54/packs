@@ -70,10 +70,18 @@
   align-items: center;
   margin-left: 0;
   margin-right: 0;
+  min-height: 55px;
+}
+.admin-page .menu-btn-right{
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+.admin-page .text-block-797{
+  font-size: 20px;
 }
 .edit-icon{
   flex: 1;
-  max-width: 60px;
+  max-width: 40px;
 }
 .edit-icon img{
   width: 100%;
@@ -260,6 +268,9 @@ aside .l{position: absolute;bottom: 0;right: 0;width: 50px;height: 50px;backgrou
   100%{
     box-shadow: 0px 0px 20px green;
   }
+}
+.copy.del{
+  color: red;
 }
 #main .menu-btn.mb10{margin-bottom: 12px;margin-top: 6px;}
 

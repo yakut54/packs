@@ -10,6 +10,8 @@ export default createStore({
     pageName: '',
     title: '',
     subtitle: '',
+    title_: '',
+    subtitle_: '',
     isShowBtnLink: false,
     isShowGiftBtn: true,
     isShowGiftBtnLink: true,
@@ -107,6 +109,8 @@ export default createStore({
       state.packsList = packsList
     },
     setGift_1_: (state, gift) => {
+
+      console.log('gift.title >> ', gift.title);
       state.giftBtn.texts = gift.texts
       state.giftBtn.img = gift.img
       state.giftBtn.imgBtn = gift.img_btn
@@ -137,10 +141,17 @@ export default createStore({
         link: btnLink.link
       }
     },
+    setClearData: state => state.data = [],
 
     setPageName: (state, pageName) => state.pageName = pageName,
-    setPageTitle: (state, title) => state.title = title,
-    setPageSubtitle: (state, subtitle) => state.subtitle = subtitle,
+    setPageTitle: (state, title) => {
+      state.title = title
+      state.title_ = title
+    },
+    setPageSubtitle: (state, subtitle) => {
+      state.subtitle = subtitle
+      state.subtitle_ = subtitle
+    },
 
     setGiftTitle: (state, title) => state.giftBtn.title = title,
     setGiftSubtitle: (state, subtitle) => state.giftBtn.subtitle = subtitle,
@@ -192,22 +203,29 @@ export default createStore({
     deleteBtn: (state, idx) => state.data.splice(idx, 1),
   },
   actions: {
-    createSeans: async ({ commit, state }, { type: requestType, callback }) => {
+    createSeans: async ({ commit, state }, { type: request_type, callback }) => {
       commit('toggleLoader', true)
       const { btnLink, isShowGiftBtnLink, isShowBtnLink, data, title, subtitle, pageName, isShowGiftBtn } = state
-      const sendData = JSON.stringify({
-        request_type: requestType,
-        request: {
-          data,
-          title,
-          btnLink,
-          pageName,
-          subtitle,
-          isShowBtnLink,
-          isShowGiftBtn,
-          isShowGiftBtnLink,
-        }
-      }, null, 2)
+      const request = isShowBtnLink ? {
+        data,
+        title,
+        btnLink,
+        pageName,
+        subtitle,
+        isShowBtnLink,
+        isShowGiftBtn,
+        isShowGiftBtnLink,
+      } : {
+        data,
+        title,
+        pageName,
+        subtitle,
+        isShowBtnLink,
+        isShowGiftBtn,
+        isShowGiftBtnLink,
+      }
+
+      const sendData = JSON.stringify({ request_type, request }, null, 2)
 
       console.log('createSeans >>', sendData);
 
@@ -242,6 +260,38 @@ export default createStore({
         callback()
       })
 
+    },
+    deletePackByPageName: async ({ commit, state }, { pageName, callback }) => {
+
+      state.packsList = state.packsList.filter(item => item.pageName !== pageName)
+
+      commit('toggleLoader', true)
+
+      const sendData = JSON.stringify({
+        request_type: 'deleteItem',
+        pageName
+      }, null, 2)
+
+      console.log('deletePackByPageName >>>', sendData);
+
+      const result = await fetch('https://marta-ng.com/packs/admin/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        body: sendData
+      })
+
+      const resJson = result.json()
+      resJson.then(a => {
+        console.log('a.answer >> ', a.answer);
+
+        
+
+        if (callback) {
+          // callback()
+        }
+
+        commit('toggleLoader', false)
+      })
     },
     getSeansByPageName: async ({ commit }, { pageName, callback }) => {
 
@@ -303,7 +353,7 @@ export default createStore({
       })
 
     },
-    getGift_1: async ({ commit }) => {
+    getGift_1: async ({ commit }, callback) => {
       commit('toggleLoader', true)
       const sendData = JSON.stringify({ request_type: 'get_gift_1' })
 
@@ -321,6 +371,7 @@ export default createStore({
       resJson.then(a => {
         console.log('response get_gift_1 >>', a);
         commit('setGift_1_', a.answer.gift_btn)
+        if(callback)callback()
         commit('toggleLoader', false)
       })
 

@@ -22,6 +22,11 @@
               <span>Перейти на страницу</span> &nbsp;->&nbsp;&nbsp;
               <a class="link" :href="`${url}#/?page=${pack.pageName}`">{{ `${url}#/?page=${pack.pageName}` }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
               <span 
+                class="copy del" 
+                :title="`удалить ${pack.pageName}`" 
+                @click="deletePack(pack.pageName)"
+              ><i class="fa-trash fa"></i></span>&nbsp;&nbsp;
+              <span 
                 class="copy" 
                 title="Скопировать ссылку" 
                 @click="copy(`${url}#/?page=${pack.pageName}`, idx)"
@@ -30,9 +35,9 @@
               <span class="copy-text" :class="{ 'copy-active': pack.isCopied }">Ссылка Скопирована</span>
             </div>
 
-            <div class="menu-btn mb10" @click="openEditor(pack.pageName)" :key="pack.title">
+            <div class="menu-btn mb10" @click="openEditor(pack.pageName)" :key="pack.pageName">
               <div class="menu-btn-right">
-                <div class="text-block-797" v-html="pack.pageName"></div>
+                <div class="text-block-797">Редактировать: {{ pack.pageName }}</div>
               </div>
               <div class="edit-icon">
                 <img src="@/assets/images/pen.png" alt="">
@@ -64,7 +69,7 @@ export default {
   },
   methods: {
     ...mapMutations(["setTitle", "setSubtitle", 'setPageName', 'toggleStatus']),
-    ...mapActions(['getAllSeanses']),
+    ...mapActions(['getAllSeanses', 'deletePackByPageName']),
     async copy(text, idx) {
       await navigator.clipboard.writeText(text)
       this.$store.commit('setIsCopied', idx)
@@ -78,6 +83,12 @@ export default {
     create() {
       this.toggleStatus('create')
       this.$router.push('/admin_1225/create')
+    },
+    deletePack(pageName){
+      const isDel = confirm(`Удалить ${pageName}?`)
+      if (isDel) {
+        this.deletePackByPageName({pageName})
+      }
     }
   },
   mounted() {
