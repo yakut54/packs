@@ -2,6 +2,7 @@
   <div>
     <div class="gift_block">
       <div class="max">
+        <back-button />
         <div class="padding">
           <div class="row">
             <div class="gift_block_text" v-html="giftBtn.texts[0]">
@@ -50,7 +51,7 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   name: "Gift",
   computed: {
-    ...mapState(['giftBtn'])
+    ...mapState(['giftBtn', 'isShowGiftBtn'])
   },
   methods: {
     ...mapMutations(["setTitle", "setSubtitle"]),
@@ -63,13 +64,16 @@ export default {
   async mounted() {
     window.scrollTo(0, 0)
     document.title = 'ВАМ ПОДАРОК'
-    if(!this.giftBtn.title){
-      await this.getGift_1()
-    }
-    this.setTitle(this.giftBtn.title)
-    this.setSubtitle(this.giftBtn.subtitle)
+
+    await this.getGift_1(() => {
+      this.setTitle(this.giftBtn.title)
+      this.setSubtitle(this.giftBtn.subtitle)
+    })
+
   }
 }
 </script>
 
-<style>@import url(../assets/css/gift.css);</style>
+<style>
+@import url(../assets/css/gift.css);
+</style>
